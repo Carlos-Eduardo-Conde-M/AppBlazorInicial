@@ -1,0 +1,16 @@
+﻿@page "/libro"
+@inject NavigationManager navigationManager
+
+<h3>LibroPage</h3>
+
+<button class="btn-primary" @onclick="navegar">
+    Navegar a form libro
+</button>
+
+
+@code {
+    private void navegar()
+    {
+        navigationManager.NavigateTo("/formlibro");
+    }
+}
