@@ -1,0 +1,36 @@
+﻿@page "/representantes"
+@inject NavigationManager navigationManager
+
+<h3>RepresentantesPage</h3>
+
+<div class="container-fluid">
+    <table class="table">
+        <tr class="row">
+            <th class="col">Num. Empleado</th>
+            <th class="col">Nombre</th>
+            <th class="col">Edad</th>
+            <th class="col">Cargo</th>
+            <th class="col">Fecha de Contrato</th>
+            <th class="col">Cuota</th>
+            <th class="col">Ventas</th>
+        </tr>
+
+        @foreach(var registro in lstRepresentantes)
+        {
+
+        }
+    </table>
+</div>
+
+<button class="btn btn-primary" @onclick="navegar">
+    Agregar representante
+</button>
+
+
+@code {
+    private List<RepresentanteFormCLS> lstRepresentantes = new();
+    private void navegar()
+    {
+        navigationManager.NavigateTo("/formRepresentantes");
+    }
+}
