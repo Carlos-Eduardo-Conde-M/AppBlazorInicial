@@ -1,4 +1,6 @@
 ﻿@page "/representantes"
+@using AppBlazor.Client.ComponentesSimples;
+@using AppBlazor.Client.Servicios;
 @inject NavigationManager navigationManager
 
 <h3>RepresentantesPage</h3>
@@ -17,7 +19,7 @@
 
         @foreach(var registro in lstRepresentantes)
         {
-
+            <RepresentanteItem Id="@registro.Num_Empl" Nombre="@registro.Nombre" Cargo="@registro.Cargo" Cuota="@registro.Cuota" Edad="@registro.Edad" FechaContrato="@registro.FechaContrato" Ventas="@registro.Ventas"/>
         }
     </table>
 </div>
@@ -29,6 +31,11 @@
 
 @code {
     private List<RepresentanteFormCLS> lstRepresentantes = new();
+
+    protected override void OnInitialized()
+    {
+        lstRepresentantes = RepresentantesServicio.ObtenerLibros();
+    }
     private void navegar()
     {
         navigationManager.NavigateTo("/formRepresentantes");

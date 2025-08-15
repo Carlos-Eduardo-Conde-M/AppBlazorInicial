@@ -1,0 +1,28 @@
+﻿
+
+<tr>
+    <th>@Id</th>
+    <th>@Nombre</th>
+    <th>@Edad</th>
+    <th>@FechaContrato.ToString("yyyy-MM-dd")</th>
+    <th>@Cuota</th>
+    <th>@Ventas</th>
+</tr>
+
+@code {
+    [Parameter]
+    public int Id{get;set;}
+    
+    [Parameter]
+    public string Nombre{get;set;} = null!;
+    [Parameter]
+    public int Edad{get;set;} = 0;
+    [Parameter]
+    public string Cargo{get;set;}
+    [Parameter]
+    public DateTime FechaContrato{get;set;}
+    [Parameter]
+    public int Cuota{get;set;}
+    [Parameter]
+    public int Ventas{get;set;}
+}
