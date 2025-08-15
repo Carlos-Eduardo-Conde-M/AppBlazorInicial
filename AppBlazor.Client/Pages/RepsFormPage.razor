@@ -15,12 +15,20 @@
         <InputText class="form-control" @bind-Value="representanteForm.Nombre"  placeholder="Ingrese el nombre del empleado"/>
         <ValidationMessage For="@(() => representanteForm.Nombre)" />
     </div>
-    <div class="mt-3">
+    <div class="d-flex gap-3">
+        <div class="mt-3">
         <label>Edad del empleado</label>
         <InputNumber class="form-control" @bind-Value="representanteForm.Edad" placeholder="Ingrese la edad del empleado (opcional)"/>
         <ValidationMessage For="@(() => representanteForm.Edad)" />
     </div>
-    <div class="mt-3">
+        <div class="mt-3">
+        <label>Fecha de Contratación del empleado (*)</label>
+        <InputDate class="form-control" @bind-Value="representanteForm.FechaContrato"/>
+        <ValidationMessage For="@(() => representanteForm.FechaContrato)"/>
+        </div>
+    </div>
+    <div class="d-flex gap-3">
+        <div class="mt-3">
         <label>Cargo del empleado (*)</label>
         <InputSelect class="form-control" @bind-Value="representanteForm.Cargo">
             <option value="">Seleccione una opcion</option>
@@ -32,16 +40,14 @@
         <ValidationMessage For="@(() => representanteForm.Cargo)" />
     </div>
     <div class="mt-3">
-        <label>Fecha de Contratación del empleado (*)</label>
-        <InputDate class="form-control" @bind-Value="representanteForm.FechaContrato"/>
-        <ValidationMessage For="@(() => representanteForm.FechaContrato)"/>
-    </div>
-
-    <div class="mt-3">
         <label>Cuota del empleado (*)</label>
         <InputNumber class="form-control" @bind-Value="representanteForm.Cuota" placeholder="Ingrese el porcentaje que se llevará el empleado por venta"/>
         <ValidationMessage For="@(() => representanteForm.Cuota)" />
     </div>
+    </div>
+    
+
+    
 
 
     <div class="mt-3">
