@@ -1,4 +1,4 @@
-﻿@page "/formRepresentantes/"
+﻿@page "/formRepresentantesEdit/{id:int}";
 @using AppBlazor.Client.Servicios;
 @inject NavigationManager NavigationManager;
 <h3>Añadir nuevo representante</h3>
@@ -59,17 +59,24 @@
 </EditForm>
 
 
-@code {
+@code{
     private RepresentanteFormCLS representanteForm { get; set; } = new ();
+    [Parameter]
     public int id { get; set; } 
 
     private string[] cargos = {"Vendedor", "Supervisor", "Gerente", "Pasante de sistemas"};
+
+    protected override Task OnInitializedAsync()
+    {
+        representanteForm = RepresentantesServicio.lstRepresentantes.FirstOrDefault(rep => rep.Num_Empl == id);
+        return base.OnInitializedAsync();
+    }
     public void Guardar()
     {
         Console.WriteLine("Se agrego el libro");
 
-        RepresentantesServicio.AgregarLibro(representanteForm);
-        representanteForm = new();
+        RepresentantesServicio.EditarLibro(representanteForm);
+        Regresar();
     }
 
     public void Regresar()

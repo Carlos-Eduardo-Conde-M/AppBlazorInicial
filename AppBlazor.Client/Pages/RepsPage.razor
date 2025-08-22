@@ -6,23 +6,34 @@
 <h3>RepresentantesPage</h3>
 
 <div class="container-fluid">
-    <table class="table">
-        <tr>
-            <th>Num. Empleado</th>
-            <th>Nombre</th>
-            <th>Edad</th>
-            <th>Cargo</th>
-            <th>Fecha de Contrato</th>
-            <th>Cuota</th>
-            <th>Ventas</th>
-            <td>Acciones</td>
-        </tr>
 
-        @foreach(var registro in lstRepresentantes)
-        {
-            <RepresentanteItem Id="@registro.Num_Empl" Nombre="@registro.Nombre" Cargo="@registro.Cargo" Cuota="@registro.Cuota" Edad="@registro.Edad" FechaContrato="@registro.FechaContrato" Ventas="@registro.Ventas"/>
-        }
-    </table>
+    @if (lstRepresentantes.Count > 0)
+    {
+        <table class="table">
+            <tr>
+                <th>Num. Empleado</th>
+                <th>Nombre</th>
+                <th>Edad</th>
+                <th>Cargo</th>
+                <th>Fecha de Contrato</th>
+                <th>Cuota</th>
+                <th>Ventas</th>
+                <td>Acciones</td>
+            </tr>
+
+            @foreach (var registro in lstRepresentantes)
+            {
+                <RepresentanteItem Id="@registro.Num_Empl" Nombre="@registro.Nombre" Cargo="@registro.Cargo" Cuota="@registro.Cuota" Edad="@registro.Edad" FechaContrato="@registro.FechaContrato" Ventas="@registro.Ventas" EliminarRepresentante="@(() => EliminarRepres(registro.Num_Empl))" />
+            }
+        </table>
+
+    }
+    else
+    {
+        <div class="container-fluid">
+            <h1 class="text-muted">No se tienen registros de representantes</h1>
+        </div>
+    }
 </div>
 
 <button class="btn btn-primary" @onclick="navegar">
@@ -39,6 +50,11 @@
     }
     private void navegar()
     {
-        navigationManager.NavigateTo("/formRepresentantes");
+        navigationManager.NavigateTo("/formRepresentantes/");
+    }
+    public void EliminarRepres(int id)
+    {
+        RepresentantesServicio.EliminarRepresentante(id);
+        StateHasChanged();
     }
 }

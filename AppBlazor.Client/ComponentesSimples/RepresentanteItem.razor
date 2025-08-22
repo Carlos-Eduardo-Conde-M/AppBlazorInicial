@@ -11,7 +11,7 @@
     <td>
         <div>
             <button class="btn btn-primary" @onclick="() => EditarRepresentante(Id)">Editar</button>
-            <button class="btn btn-danger" @onclick="() => EliminarRepresentante(Id)">Eliminar</button>
+            <button class="btn btn-danger" @onclick="EliminarRepresentante">Eliminar</button>
         </div>
     </td>
 </tr>
@@ -31,14 +31,12 @@
     public int Cuota{get;set;}
     [Parameter]
     public int Ventas{get;set;}
+    [Parameter]
+    public EventCallback EliminarRepresentante { get; set; }
 
-    public void EliminarRepresentante(int id)
-    {
-        RepresentantesServicio.EliminarRepresentante(id);
-   }
 
     public void EditarRepresentante(int id)
     {
-        NavigationManager.NavigateTo($"/formRepresentantes/{id}");
+        NavigationManager.NavigateTo($"/formRepresentantesEdit/{id}");
     }
 }
