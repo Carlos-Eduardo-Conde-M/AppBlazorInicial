@@ -14,6 +14,25 @@ namespace AppBlazor.Client.Servicios
             lstRepresentantes.Add(nuevoRepresentante);
         }
 
+        public static void EditarLibro(RepresentanteFormCLS nuevoRepresentante)
+        {
+            var representante = lstRepresentantes.FirstOrDefault(r => r.Num_Empl == nuevoRepresentante.Num_Empl);
+            if (representante != null)
+            {
+                lstRepresentantes.Remove(representante);
+                lstRepresentantes.Add(nuevoRepresentante);
+            }
+        }
+
+        public static void EliminarRepresentante(int id)
+        {
+            var representante = lstRepresentantes.FirstOrDefault(r => r.Num_Empl == id);
+            if (representante != null)
+            {
+                lstRepresentantes.Remove(representante);
+            }
+        }
+
         public static List<RepresentanteFormCLS> ObtenerLibros()
         {
             return lstRepresentantes;

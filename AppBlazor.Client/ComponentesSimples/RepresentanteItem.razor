@@ -1,5 +1,5 @@
-﻿
-
+﻿@using AppBlazor.Client.Servicios
+@inject NavigationManager NavigationManager;
 <tr>
     <td>@Id</td>
     <td>@Nombre</td>
@@ -8,22 +8,37 @@
     <td>@FechaContrato</td>
     <td>@Cuota</td>
     <td>@Ventas</td>
+    <td>
+        <div>
+            <button class="btn btn-primary" @onclick="() => EditarRepresentante(Id)">Editar</button>
+            <button class="btn btn-danger" @onclick="() => EliminarRepresentante(Id)">Eliminar</button>
+        </div>
+    </td>
 </tr>
 
 @code {
     [Parameter]
     public int Id{get;set;}
-    
     [Parameter]
     public string Nombre{get;set;} = null!;
     [Parameter]
     public int Edad{get;set;} = 0;
     [Parameter]
-    public string Cargo{get;set;}
+    public string Cargo{get;set;} = null!;
     [Parameter]
     public DateTime FechaContrato{get;set;}
     [Parameter]
     public int Cuota{get;set;}
     [Parameter]
     public int Ventas{get;set;}
+
+    public void EliminarRepresentante(int id)
+    {
+        RepresentantesServicio.EliminarRepresentante(id);
+   }
+
+    public void EditarRepresentante(int id)
+    {
+        NavigationManager.NavigateTo($"/formRepresentantes/{id}");
+    }
 }
