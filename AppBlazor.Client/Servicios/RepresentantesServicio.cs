@@ -28,9 +28,22 @@ namespace AppBlazor.Client.Servicios
         {
             lstRepresentantes.Add(nuevoRepresentante);
         }
+        public void ActualizarRepresentante(RepresentanteFormCLS nuevoRepresentante)
+        {
+            var obj = lstRepresentantes.Where(p => p.Num_Empl == nuevoRepresentante.Num_Empl).FirstOrDefault();
+            if (obj != null)
+            {
+                obj.Nombre = nuevoRepresentante.Nombre;
+                obj.Edad = nuevoRepresentante.Edad;
+                obj.Cargo = nuevoRepresentante.Cargo;
+                obj.FechaContrato = nuevoRepresentante.FechaContrato;
+                obj.Cuota = nuevoRepresentante.Cuota;
+                obj.Ventas = nuevoRepresentante.Ventas;
+            }
+        }
 
-        
-        
+
+
         public RepresentanteFormCLS recuperaRepresentanteporID(int idrepresentante)
         {
             var obj = lstRepresentantes.Where(p => p.Num_Empl == idrepresentante).FirstOrDefault();

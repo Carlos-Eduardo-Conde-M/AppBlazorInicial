@@ -83,7 +83,12 @@
             RepresentantesServicio.AgregarRepresentante(representanteForm);
             NavigationManager.NavigateTo("/representantes");
         }
-        
+        else
+        {
+            RepresentantesServicio.ActualizarRepresentante(representanteForm);
+            NavigationManager.NavigateTo("/representantes");
+        }
+
     }
 
     public void Regresar()
