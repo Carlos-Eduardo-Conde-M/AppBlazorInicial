@@ -1,22 +1,52 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AppBlazor.Entities;
+using System.ComponentModel;
 namespace AppBlazor.Client.Servicios
 {
-    public static class RepresentantesServicio
+    public class RepresentantesServicio
     {
-        public static List<RepresentanteFormCLS> lstRepresentantes = new();
+        private  List<RepresentanteFormCLS> lstRepresentantes =null!;
 
-        public static void AgregarLibro(RepresentanteFormCLS nuevoRepresentante)
+        public RepresentantesServicio()
+        {
+            lstRepresentantes = new List<RepresentanteFormCLS>();
+            lstRepresentantes.Add(new RepresentanteFormCLS { Num_Empl = 1, Nombre = "Carlos", Edad = 18, Cargo = "Vendedor", FechaContrato = DateTime.Parse("10/06/2025"), Cuota = 18, Ventas = 23 });
+            lstRepresentantes.Add(new RepresentanteFormCLS { Num_Empl = 2, Nombre = "Bryan", Edad = 19, Cargo = "Supervisor", FechaContrato = DateTime.Parse("11/05/2025"), Cuota = 9, Ventas = 10 });
+        }
+
+        public  List<RepresentanteFormCLS> ObtenerRepresentante()
+        {
+            return lstRepresentantes;
+        }
+        public List<RepresentanteFormCLS> Eliminar(int idrepresentante)
+        {
+            var listaqueda = lstRepresentantes.Where(p => p.Num_Empl != idrepresentante).ToList();
+            lstRepresentantes = listaqueda;
+            return listaqueda;
+        }
+
+        public  void AgregarRepresentante(RepresentanteFormCLS nuevoRepresentante)
         {
             lstRepresentantes.Add(nuevoRepresentante);
         }
 
-        public static List<RepresentanteFormCLS> ObtenerLibros()
+        
+        
+        public RepresentanteFormCLS recuperaRepresentanteporID(int idrepresentante)
         {
-            return lstRepresentantes;
+            var obj = lstRepresentantes.Where(p => p.Num_Empl == idrepresentante).FirstOrDefault();
+            if (obj != null)
+            {
+                return new RepresentanteFormCLS { Num_Empl = obj.Num_Empl, Nombre = obj.Nombre, Edad = obj.Edad, Cargo = obj.Cargo,
+                    FechaContrato = obj.FechaContrato, Cuota = obj.Cuota, Ventas = obj.Ventas};
+            }
+            else
+            {
+                return new RepresentanteFormCLS();
+            }
         }
+
+        
+
+        
     }
 }
