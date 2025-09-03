@@ -1,18 +1,16 @@
-﻿@page "/formRepresentantes"
+﻿@page "/formRepresentantes/editar/{idRepresentante:int}"
 @inject NavigationManager NavigationManager;
 @inject RepresentantesServicio RepresentantesServicio;
 
 <FormRepresentantes idRepresentante="idRepresentante"></FormRepresentantes>
 
 @code {
-    private RepresentanteFormCLS representanteForm { get; set; } = new ();
+    private RepresentanteFormCLS representanteForm { get; set; } = new();
     [Parameter]
     public int idRepresentante { get; set; }
-    private string[] cargos = {"Vendedor", "Supervisor", "Gerente", "Pasante de sistemas"};
+    private string[] cargos = { "Vendedor", "Supervisor", "Gerente", "Pasante de sistemas" };
     public void Guardar()
     {
-        Console.WriteLine("Se agrego el libro");
-
         RepresentantesServicio.AgregarRepresentante(representanteForm);
         representanteForm = new();
     }
