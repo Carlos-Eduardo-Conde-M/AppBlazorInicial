@@ -1,12 +1,13 @@
 ﻿
 @inject NavigationManager NavigationManager;
 @inject RepresentantesServicio RepresentantesServicio;
+@inject SucursalRepresentanteServicio suscursalRepresentanteServicio;
 <h3>@titulo</h3>
 <EditForm Model="@representanteForm" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
     <div class="mt-3">
         <label>Número de empleado (*)</label>
-        <InputNumber class="form-control" @bind-Value="representanteForm.Num_Empl" placeholder="Ingrese el número de empleado" />
+        <InputNumber readonly class="form-control" id="idEmpleado" @bind-Value="representanteForm.Num_Empl" placeholder="Ingrese el número de empleado" />
         <ValidationMessage For="@(() => representanteForm.Num_Empl)" />
     </div>
     <div class="mt-3">
@@ -52,6 +53,22 @@
     </div>
 
     <div class="mt-3">
+
+        <label>Seleccione la Sucursal</label>
+        <InputSelect class="form-control" @bind-Value="@representanteForm.idSucursal">
+            
+            <option value="0">--Seleccione--</option>
+            @foreach (var item in listaSucursales)
+            {
+                <option value="@item.idSucursal">@item.surcursal</option>
+            }
+
+        </InputSelect>
+        <ValidationMessage For="(() => representanteForm.idSucursal)"></ValidationMessage>
+
+    </div>
+
+    <div class="mt-3">
         <button type="submit" class="btn btn-primary" @onclick="Guardar"> Guardar</button>
         <button class="btn btn-danger" @onclick="Regresar"> Regresar</button>
     </div>
@@ -65,8 +82,13 @@
 
     private string[] cargos = { "Vendedor", "Supervisor", "Gerente", "Pasante de sistemas" };
 
+    public List<SucursalRepresentanteCLS> listaSucursales { get; set; } = new List<SucursalRepresentanteCLS>();
+
     protected override Task OnInitializedAsync()
     {
+
+        listaSucursales = suscursalRepresentanteServicio.listarSucursales();
+
         if (idRepresentante == 0) titulo = "Agregar Representantes";
         else
         {

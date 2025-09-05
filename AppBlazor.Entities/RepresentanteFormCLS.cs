@@ -28,9 +28,9 @@ namespace AppBlazor.Entities
 
         [Required(ErrorMessage = "Las ventas son obligatorias")]
         [Range(1, int.MaxValue, ErrorMessage = "Solo se pueden ingresar números positivos")]
-        public int Ventas { get; set; } 
-
-
+        public int Ventas { get; set; }
+        [Range(1,int.MaxValue,ErrorMessage ="Debe de seleccionar una Sucursal")]
+        public int idSucursal { get; set; }
         public RepresentanteFormCLS(){}
         
     }

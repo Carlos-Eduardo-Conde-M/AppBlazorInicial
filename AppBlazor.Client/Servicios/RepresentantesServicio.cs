@@ -9,8 +9,10 @@ namespace AppBlazor.Client.Servicios
         public RepresentantesServicio()
         {
             lstRepresentantes = new List<RepresentanteFormCLS>();
-            lstRepresentantes.Add(new RepresentanteFormCLS { Num_Empl = 1, Nombre = "Carlos", Edad = 18, Cargo = "Vendedor", FechaContrato = DateTime.Parse("10/06/2025"), Cuota = 18, Ventas = 23 });
-            lstRepresentantes.Add(new RepresentanteFormCLS { Num_Empl = 2, Nombre = "Bryan", Edad = 19, Cargo = "Supervisor", FechaContrato = DateTime.Parse("11/05/2025"), Cuota = 9, Ventas = 10 });
+            lstRepresentantes.Add(new RepresentanteFormCLS { Num_Empl = 1, Nombre = "Carlos", Edad = 18, Cargo = "Vendedor",
+                FechaContrato = DateTime.Parse("10/06/2025"), Cuota = 18, Ventas = 23,idSucursal=1 });
+            lstRepresentantes.Add(new RepresentanteFormCLS { Num_Empl = 2, Nombre = "Bryan", Edad = 19, Cargo = "Supervisor",
+                FechaContrato = DateTime.Parse("11/05/2025"), Cuota = 9, Ventas = 10,idSucursal=2 });
         }
 
         public  List<RepresentanteFormCLS> ObtenerRepresentante()
@@ -26,7 +28,18 @@ namespace AppBlazor.Client.Servicios
 
         public  void AgregarRepresentante(RepresentanteFormCLS nuevoRepresentante)
         {
-            lstRepresentantes.Add(nuevoRepresentante);
+            int id = lstRepresentantes.Select(p => p.Num_Empl).Max() + 1;
+            lstRepresentantes.Add(new RepresentanteFormCLS
+            {
+                Num_Empl = id,
+                Nombre = nuevoRepresentante.Nombre,
+                Edad = nuevoRepresentante.Edad,
+                Cargo = nuevoRepresentante.Cargo,
+                FechaContrato = nuevoRepresentante.FechaContrato,
+                Cuota = nuevoRepresentante.Cuota,
+                Ventas = nuevoRepresentante.Ventas,
+                idSucursal= nuevoRepresentante.idSucursal
+            });
         }
         public void ActualizarRepresentante(RepresentanteFormCLS nuevoRepresentante)
         {
@@ -39,6 +52,7 @@ namespace AppBlazor.Client.Servicios
                 obj.FechaContrato = nuevoRepresentante.FechaContrato;
                 obj.Cuota = nuevoRepresentante.Cuota;
                 obj.Ventas = nuevoRepresentante.Ventas;
+                obj.idSucursal = nuevoRepresentante.idSucursal;
             }
         }
 
@@ -50,13 +64,15 @@ namespace AppBlazor.Client.Servicios
             if (obj != null)
             {
                 return new RepresentanteFormCLS { Num_Empl = obj.Num_Empl, Nombre = obj.Nombre, Edad = obj.Edad, Cargo = obj.Cargo,
-                    FechaContrato = obj.FechaContrato, Cuota = obj.Cuota, Ventas = obj.Ventas};
+                    FechaContrato = obj.FechaContrato, Cuota = obj.Cuota, Ventas = obj.Ventas , idSucursal = obj.idSucursal};
             }
             else
             {
                 return new RepresentanteFormCLS();
             }
         }
+
+        
 
         
 
