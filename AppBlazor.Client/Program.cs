@@ -10,5 +10,6 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 builder.Services.AddScoped<RepresentantesServicio>();
 builder.Services.AddScoped<SucursalRepresentanteServicio>();
+builder.Services.AddScoped<DirectorServicio>();
 
 await builder.Build().RunAsync();

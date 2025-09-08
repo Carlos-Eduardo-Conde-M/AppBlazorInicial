@@ -10,9 +10,9 @@ namespace AppBlazor.Client.Servicios
         {
             lstRepresentantes = new List<RepresentanteFormCLS>();
             lstRepresentantes.Add(new RepresentanteFormCLS { Num_Empl = 1, Nombre = "Carlos", Edad = 18, Cargo = "Vendedor",
-                FechaContrato = DateTime.Parse("10/06/2025"), Cuota = 18, Ventas = 23,idSucursal=1 });
+                FechaContrato = DateTime.Parse("10/06/2025"), Cuota = 18, Ventas = 23,idSucursal=1,idDirector=1 });
             lstRepresentantes.Add(new RepresentanteFormCLS { Num_Empl = 2, Nombre = "Bryan", Edad = 19, Cargo = "Supervisor",
-                FechaContrato = DateTime.Parse("11/05/2025"), Cuota = 9, Ventas = 10,idSucursal=2 });
+                FechaContrato = DateTime.Parse("11/05/2025"), Cuota = 9, Ventas = 10,idSucursal=2,idDirector=2 });
         }
 
         public  List<RepresentanteFormCLS> ObtenerRepresentante()
@@ -38,7 +38,8 @@ namespace AppBlazor.Client.Servicios
                 FechaContrato = nuevoRepresentante.FechaContrato,
                 Cuota = nuevoRepresentante.Cuota,
                 Ventas = nuevoRepresentante.Ventas,
-                idSucursal= nuevoRepresentante.idSucursal
+                idSucursal= nuevoRepresentante.idSucursal,
+                idDirector= nuevoRepresentante.idDirector
             });
         }
         public void ActualizarRepresentante(RepresentanteFormCLS nuevoRepresentante)
@@ -53,6 +54,7 @@ namespace AppBlazor.Client.Servicios
                 obj.Cuota = nuevoRepresentante.Cuota;
                 obj.Ventas = nuevoRepresentante.Ventas;
                 obj.idSucursal = nuevoRepresentante.idSucursal;
+                obj.idDirector= nuevoRepresentante.idDirector;
             }
         }
 
@@ -64,7 +66,7 @@ namespace AppBlazor.Client.Servicios
             if (obj != null)
             {
                 return new RepresentanteFormCLS { Num_Empl = obj.Num_Empl, Nombre = obj.Nombre, Edad = obj.Edad, Cargo = obj.Cargo,
-                    FechaContrato = obj.FechaContrato, Cuota = obj.Cuota, Ventas = obj.Ventas , idSucursal = obj.idSucursal};
+                    FechaContrato = obj.FechaContrato, Cuota = obj.Cuota, Ventas = obj.Ventas , idSucursal = obj.idSucursal , idDirector = obj.idDirector};
             }
             else
             {

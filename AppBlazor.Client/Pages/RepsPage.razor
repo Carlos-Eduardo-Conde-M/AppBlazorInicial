@@ -2,6 +2,7 @@
 @inject NavigationManager navigationManager;
 @inject RepresentantesServicio RepresentantesServicio;
 @inject SucursalRepresentanteServicio sucursalRepresentanteServicio;
+@inject DirectorServicio directorservicio;
 
 <h3>RepresentantesPage</h3>
 
@@ -16,6 +17,7 @@
             <th>Cuota</th>
             <th>Ventas</th>
             <th>Sucursal</th>
+            <th>Director</th>
             <th>Opciones</th>
         </tr>
 
@@ -31,6 +33,7 @@
                     <td>@item.Cuota</td>
                     <td>@item.Ventas</td>
                     <td>@listaSucursales.Where(p => p.idSucursal == item.idSucursal).FirstOrDefault()!.surcursal</td>
+                    <td>@listadirector.Where(p => p.IDdirector == item.idDirector).FirstOrDefault()!.Director</td>
                     <td>
                         <button @onclick=" () => eliminar(item.Num_Empl)"
                                 class="btn alert-danger">
@@ -54,6 +57,7 @@
 @code {
     private List<RepresentanteFormCLS> lstRepresentantes = new();
     private List<SucursalRepresentanteCLS> listaSucursales = new();
+    private List<DirectorCLS> listadirector = new();
 
     protected override void OnInitialized()
     {
@@ -61,6 +65,7 @@
     }
     private void listarRepresentantes()
     {
+        listadirector = directorservicio.listarDirector();
         listaSucursales = sucursalRepresentanteServicio.listarSucursales();
         lstRepresentantes = RepresentantesServicio.ObtenerRepresentante();
     } 

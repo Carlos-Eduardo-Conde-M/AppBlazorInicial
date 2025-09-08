@@ -31,6 +31,9 @@ namespace AppBlazor.Entities
         public int Ventas { get; set; }
         [Range(1,int.MaxValue,ErrorMessage ="Debe de seleccionar una Sucursal")]
         public int idSucursal { get; set; }
+
+        [Range(1, int.MaxValue, ErrorMessage = "Debe de seleccionar un Director")]
+        public int idDirector { get; set; }
         public RepresentanteFormCLS(){}
         
     }
