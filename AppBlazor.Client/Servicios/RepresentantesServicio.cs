@@ -1,9 +1,20 @@
 using AppBlazor.Entities;
+using System.Collections.Generic;
 using System.ComponentModel;
 namespace AppBlazor.Client.Servicios
 {
     public class RepresentantesServicio
     {
+        public event Func<string, Task> OnSearch = delegate { return Task.CompletedTask; };
+
+        public async Task notificarbusqueda (string nombre)
+        {
+            if (OnSearch != null)
+            {
+                await OnSearch.Invoke(nombre);
+            }
+        }
+
         private  List<RepresentanteFormCLS> lstRepresentantes =null!;
 
         public RepresentantesServicio()
@@ -19,6 +30,21 @@ namespace AppBlazor.Client.Servicios
         {
             return lstRepresentantes;
         }
+
+        public List<RepresentanteFormCLS> filtrarRepresenatntes(string nombre)
+        {
+            List<RepresentanteFormCLS> l = ObtenerRepresentante();
+            if (nombre == null)
+            {
+                return l;
+            }
+            else
+            {
+                List<RepresentanteFormCLS> listafitrada = l.Where(p => p.Nombre.ToUpper().Contains(nombre.ToUpper())).ToList();
+                return listafitrada;
+            }
+        }
+
         public List<RepresentanteFormCLS> Eliminar(int idrepresentante)
         {
             var listaqueda = lstRepresentantes.Where(p => p.Num_Empl != idrepresentante).ToList();

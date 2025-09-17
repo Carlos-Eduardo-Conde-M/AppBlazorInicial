@@ -1,0 +1,21 @@
+﻿@inject RepresentantesServicio representantesServicio
+<div class="input-group mt-3 mb-3">
+    <input type="text" class="form-control" placeholder="Ingresa el nombre del representante" 
+           @bind-value="nombre" @bind-value:event="oninput">
+
+    <button @onclick="buscar" class="btn btn-outline-dark" type="button">Buscar</button>
+    <button @onclick="limpiar" class="btn btn-outline-danger" type="button">Limpiar</button>
+</div>
+@code {
+    public string nombre { get; set; } = string.Empty!;
+
+    private async Task buscar()
+    {
+        await representantesServicio.notificarbusqueda(nombre);
+    }
+    private async Task limpiar()
+    {
+        nombre = string.Empty;
+        await representantesServicio.notificarbusqueda(nombre);
+    }
+}

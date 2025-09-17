@@ -6,6 +6,8 @@
 
 <h3>RepresentantesPage</h3>
 
+<SearchRepresentante></SearchRepresentante>
+
 <div class="container-fluid">
     <table class="table">
         <tr>
@@ -58,6 +60,19 @@
     private List<RepresentanteFormCLS> lstRepresentantes = new();
     private List<SucursalRepresentanteCLS> listaSucursales = new();
     private List<DirectorCLS> listadirector = new();
+
+    protected override Task OnInitializedAsync()
+    {
+        RepresentantesServicio.OnSearch += filtrar;
+        return base.OnInitializedAsync();
+    }
+
+    private Task filtrar (string nombre)
+    {
+        lstRepresentantes = RepresentantesServicio.filtrarRepresenatntes(nombre);
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
 
     protected override void OnInitialized()
     {
