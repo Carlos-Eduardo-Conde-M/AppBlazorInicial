@@ -1,6 +1,6 @@
-﻿using AppBlazor.Entities;
+﻿using AppBlazor.Entities.RepresentanteClS;
 using System.ComponentModel;
-namespace AppBlazor.Client.Servicios
+namespace AppBlazor.Client.Servicios.RepresentantesSrevicios
 {
     public class SucursalRepresentanteServicio
     {

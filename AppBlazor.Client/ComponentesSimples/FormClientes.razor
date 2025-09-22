@@ -1,0 +1,103 @@
+﻿@using AppBlazor.Client.Servicios.RepresentantesSrevicios
+@using AppBlazor.Client.Servicios.ClientesServicios
+@using AppBlazor.Entities.RepresentanteClS
+@using AppBlazor.Entities.ClienteCLS
+
+@inject NavigationManager NavigationManager;
+@inject RepresentantesServicio representantesServicio;
+@inject ClienteServicio clienteServicio;
+
+<h3>@titulo</h3>
+<EditForm Model="@ClienteForm" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+    <div class="mt-3">
+        <label>Codigo del Cliente (*)</label>
+        <InputNumber readonly class="form-control"  @bind-Value="ClienteForm.CodigoCliente" placeholder="Ingrese el codigo del cliente" />
+        <ValidationMessage For="@(() => ClienteForm.CodigoCliente)" />
+    </div>
+
+    <div class="mt-3">
+        <label>Nombre Del Cliente (*)</label>
+        <InputText  class="form-control" @bind-Value="ClienteForm.NombreCliente" placeholder="Ingrese el nombre de cliente" />
+        <ValidationMessage For="@(() => ClienteForm.NombreCliente)" />
+    </div>
+    
+   
+    
+
+    <div class="mt-3">
+
+        <label>Seleccione el Representante</label>
+        <InputSelect class="form-control" @bind-Value="@ClienteForm.IdRepresentante">
+
+            <option value="0">--Seleccione--</option>
+            @foreach (var item in listaRepresentantes)
+            {
+                <option value="@item.Num_Empl">@item.Nombre</option>
+            }
+
+        </InputSelect>
+        <ValidationMessage For="(() => ClienteForm.IdRepresentante)"></ValidationMessage>
+
+    </div>
+
+    <div class="mt-3">
+        <label>Limite de credito (*)</label>
+        <InputNumber  class="form-control" @bind-Value="ClienteForm.LimiteCredito" placeholder="Ingrese el limite de credito del cliente" />
+        <ValidationMessage For="@(() => ClienteForm.LimiteCredito)" />
+    </div>
+
+
+
+
+    <div class="mt-3">
+        <button type="submit" class="btn btn-primary" @onclick="Guardar"> Guardar</button>
+        <button class="btn btn-danger" @onclick="Regresar"> Regresar</button>
+    </div>
+
+</EditForm>
+
+@code {
+    private ClienteCLS ClienteForm { get; set; } = new();
+    public string titulo { get; set; } = "";
+
+    [Parameter]
+    public int CodCliente { get; set; }
+
+    public List<RepresentanteFormCLS> listaRepresentantes { get; set; } = new List<RepresentanteFormCLS>();
+
+    protected override Task OnInitializedAsync()
+    {
+
+        listaRepresentantes = representantesServicio.ObtenerRepresentante();
+
+        if (CodCliente == 0) titulo = "Agregar Cliente";
+        else
+        {
+            titulo = "Editar Cliente";
+            ClienteForm = clienteServicio.recuperaClienteporID(CodCliente);
+
+        }
+        return base.OnInitializedAsync();
+    }
+    public void Guardar()
+    {
+        if (titulo == "Agregar Cliente")
+        {
+            clienteServicio.AgregarCliente(ClienteForm);
+            NavigationManager.NavigateTo("/clientes");
+        }
+        else
+        {
+            clienteServicio.AgregarCliente(ClienteForm);
+            NavigationManager.NavigateTo("/clientes");
+        }
+
+    }
+
+    public void Regresar()
+    {
+        NavigationManager.NavigateTo("/clientes");
+    }
+
+}

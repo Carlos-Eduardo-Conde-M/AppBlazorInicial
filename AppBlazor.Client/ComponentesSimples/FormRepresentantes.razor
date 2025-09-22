@@ -1,14 +1,19 @@
-﻿
+﻿@using AppBlazor.Client.Servicios.RepresentantesSrevicios
+@using AppBlazor.Entities.RepresentanteClS
+
 @inject NavigationManager NavigationManager;
 @inject RepresentantesServicio RepresentantesServicio;
 @inject SucursalRepresentanteServicio suscursalRepresentanteServicio;
 @inject DirectorServicio directorServicio;
+
 <h3>@titulo</h3>
+
+
 <EditForm Model="@representanteForm" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
     <div class="mt-3">
         <label>Número de empleado (*)</label>
-        <InputNumber readonly class="form-control" id="idEmpleado" @bind-Value="representanteForm.Num_Empl" placeholder="Ingrese el número de empleado" />
+        <InputNumber readonly class="form-control" @bind-Value="representanteForm.Num_Empl" placeholder="Ingrese el número de empleado" />
         <ValidationMessage For="@(() => representanteForm.Num_Empl)" />
     </div>
     <div class="mt-3">
@@ -98,6 +103,7 @@
 @code {
     private RepresentanteFormCLS representanteForm { get; set; } = new();
     public string titulo { get; set; } = "";
+
     [Parameter]
     public int idRepresentante { get; set; }
 
@@ -127,19 +133,19 @@
         if (titulo == "Agregar Representantes")
         {
             RepresentantesServicio.AgregarRepresentante(representanteForm);
-            NavigationManager.NavigateTo("/representantes");
+            NavigationManager.NavigateTo("/");
         }
         else
         {
             RepresentantesServicio.ActualizarRepresentante(representanteForm);
-            NavigationManager.NavigateTo("/representantes");
+            NavigationManager.NavigateTo("/");
         }
 
     }
 
     public void Regresar()
     {
-        NavigationManager.NavigateTo("/representantes");
+        NavigationManager.NavigateTo("/");
     }
 
     public void CambiarSeleccion(ChangeEventArgs e)

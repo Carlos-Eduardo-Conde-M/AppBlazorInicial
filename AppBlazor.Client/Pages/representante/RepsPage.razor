@@ -1,10 +1,15 @@
-﻿@page "/representantes"
+﻿@page "/"
+@using AppBlazor.Client.Servicios.RepresentantesSrevicios
+@using AppBlazor.Entities.RepresentanteClS
+@using AppBlazor.Entities.ClienteCLS
+@using AppBlazor.Client.Servicios.ClientesServicios;
 @inject NavigationManager navigationManager;
 @inject RepresentantesServicio RepresentantesServicio;
+@inject ClienteServicio clienteServicio;
 @inject SucursalRepresentanteServicio sucursalRepresentanteServicio;
 @inject DirectorServicio directorservicio;
 
-<h3>RepresentantesPage</h3>
+<h3>Representantes</h3>
 
 <SearchRepresentante></SearchRepresentante>
 
@@ -60,6 +65,7 @@
     private List<RepresentanteFormCLS> lstRepresentantes = new();
     private List<SucursalRepresentanteCLS> listaSucursales = new();
     private List<DirectorCLS> listadirector = new();
+    private List<ClienteCLS> ListaClientes = new();
 
     protected override Task OnInitializedAsync()
     {
@@ -83,15 +89,32 @@
         listadirector = directorservicio.listarDirector();
         listaSucursales = sucursalRepresentanteServicio.listarSucursales();
         lstRepresentantes = RepresentantesServicio.ObtenerRepresentante();
+        ListaClientes = clienteServicio.ObtenerClientes();
     } 
+
+
+
+
     private void navegar()
     {
         navigationManager.NavigateTo("/formRepresentantes");
     }
     private void eliminar(int idRepresentante)
     {
-        var listaqueda = RepresentantesServicio.Eliminar(idRepresentante);
-        listarRepresentantes();
+        var obj = ListaClientes.Where(p => p.IdRepresentante == idRepresentante).FirstOrDefault();
+        {
+            if (obj == null)
+            {
+                var listaqueda = RepresentantesServicio.Eliminar(idRepresentante);
+                listarRepresentantes();
+            }
+            else
+            {
+                Console.WriteLine("No se puede eliminar el representante porque tiene clientes asignados");
+            }
+        }
+
+        
     } 
     private void editar(int idlibro)
     {

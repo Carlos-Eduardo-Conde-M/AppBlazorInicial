@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AppBlazor.Entities
+namespace AppBlazor.Entities.RepresentanteClS
 {
     public class RepresentanteFormCLS
     {

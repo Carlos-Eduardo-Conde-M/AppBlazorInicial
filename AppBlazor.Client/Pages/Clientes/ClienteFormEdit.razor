@@ -1,0 +1,13 @@
+﻿@page "/formClientes/editar/{CodCliente:int}"
+@using AppBlazor.Client.Servicios.ClientesServicios
+@using AppBlazor.Entities.ClienteCLS
+@inject NavigationManager NavigationManager;
+@inject ClienteServicio clienteServicio;
+
+<FormClientes CodCliente="CodCliente"></FormClientes>
+
+@code {
+    private ClienteCLS clienteForm { get; set; } = new();
+    [Parameter]
+    public int CodCliente { get; set; }
+}

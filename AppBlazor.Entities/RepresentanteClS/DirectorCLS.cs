@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppBlazor.Entities
+namespace AppBlazor.Entities.RepresentanteClS
 {
     public class DirectorCLS
     {

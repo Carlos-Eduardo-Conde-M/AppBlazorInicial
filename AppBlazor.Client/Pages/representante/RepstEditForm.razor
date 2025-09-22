@@ -1,4 +1,6 @@
 ﻿@page "/formRepresentantes/editar/{idRepresentante:int}"
+@using AppBlazor.Client.Servicios.RepresentantesSrevicios
+@using AppBlazor.Entities.RepresentanteClS
 @inject NavigationManager NavigationManager;
 @inject RepresentantesServicio RepresentantesServicio;
 
@@ -9,19 +11,5 @@
     [Parameter]
     public int idRepresentante { get; set; }
     private string[] cargos = { "Vendedor", "Supervisor", "Gerente", "Pasante de sistemas" };
-    public void Guardar()
-    {
-        RepresentantesServicio.AgregarRepresentante(representanteForm);
-        representanteForm = new();
-    }
-
-    public void Regresar()
-    {
-        NavigationManager.NavigateTo("/representantes");
-    }
-
-    public void CambiarSeleccion(ChangeEventArgs e)
-    {
-        representanteForm.Cargo = e.Value.ToString() ?? "No asignado";
-    }
+    
 }

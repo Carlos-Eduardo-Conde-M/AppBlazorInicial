@@ -1,7 +1,8 @@
-using AppBlazor.Entities;
+using AppBlazor.Entities.RepresentanteClS;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-namespace AppBlazor.Client.Servicios
+namespace AppBlazor.Client.Servicios.RepresentantesSrevicios
 {
     public class RepresentantesServicio
     {
@@ -12,6 +13,19 @@ namespace AppBlazor.Client.Servicios
             if (OnSearch != null)
             {
                 await OnSearch.Invoke(nombre);
+            }
+        }
+        public List<RepresentanteFormCLS> filtrarRepresenatntes(string nombre)
+        {
+            List<RepresentanteFormCLS> l = ObtenerRepresentante();
+            if (nombre == null)
+            {
+                return l;
+            }
+            else
+            {
+                List<RepresentanteFormCLS> listafitrada = l.Where(p => p.Nombre.ToUpper().Contains(nombre.ToUpper())).ToList();
+                return listafitrada;
             }
         }
 
@@ -31,19 +45,7 @@ namespace AppBlazor.Client.Servicios
             return lstRepresentantes;
         }
 
-        public List<RepresentanteFormCLS> filtrarRepresenatntes(string nombre)
-        {
-            List<RepresentanteFormCLS> l = ObtenerRepresentante();
-            if (nombre == null)
-            {
-                return l;
-            }
-            else
-            {
-                List<RepresentanteFormCLS> listafitrada = l.Where(p => p.Nombre.ToUpper().Contains(nombre.ToUpper())).ToList();
-                return listafitrada;
-            }
-        }
+        
 
         public List<RepresentanteFormCLS> Eliminar(int idrepresentante)
         {
@@ -100,10 +102,36 @@ namespace AppBlazor.Client.Servicios
             }
         }
 
-        
+        public int obteneridRepresentante(string representante)
+        {
+            var obj = lstRepresentantes.Where(p => p.Nombre == representante).FirstOrDefault();
+            if (obj == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return obj.Num_Empl;
+            }
+        }
 
-        
+        public string obtenernombreRepresentante(int id)
+        {
+            var obj = lstRepresentantes.Where(p => p.Num_Empl == id).FirstOrDefault();
+            if (obj == null)
+            {
+                return "";
+            }
+            else
+            {
+                return obj.Nombre;
+            }
+        }
 
-        
+
+
+
+
+
     }
 }

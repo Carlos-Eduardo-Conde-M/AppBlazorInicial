@@ -1,0 +1,91 @@
+﻿@page "/clientes"
+@inject NavigationManager navigationManager;
+@using AppBlazor.Client.Servicios.ClientesServicios;
+@using AppBlazor.Entities.ClienteCLS;
+@using AppBlazor.Entities.RepresentanteClS;
+@using AppBlazor.Client.Servicios.RepresentantesSrevicios
+@inject ClienteServicio clienteServicio;
+@inject RepresentantesServicio representantesServicio;
+
+
+<h3>Clientes</h3>
+
+
+<SearchCliente></SearchCliente>
+
+<div class="container-fluid">
+    <table class="table">
+        <tr>
+            <th>CodigoCliente</th>
+            <th>NombreCliente</th>
+            <th>Representante de Ventas Asignado</th>
+            <th>Límite de Crédito</th>
+        </tr>
+
+        <tbody>
+            @foreach (var item in ListaClientes)
+            {
+                <tr>
+                    <td>@item.CodigoCliente</td>
+                    <td>@item.NombreCliente</td>
+                    <td>@ListaRepresentantes.Where(p => p.Num_Empl == item.IdRepresentante).FirstOrDefault()!.Nombre</td>
+                    <td>@item.LimiteCredito</td>
+                    <td>
+                        <button @onclick=" () => eliminar(item.CodigoCliente)"
+                                class="btn alert-danger">
+                            Eliminar
+                        </button>
+                        <button @onclick="() => editar(item.CodigoCliente)" class="btn alert-success">Editar</button>
+                    </td>
+                </tr>
+            }
+            
+        </tbody>
+        
+    </table>
+</div>
+
+<button class="btn btn-primary" @onclick="navegar">
+    Agregar Cliente
+</button>
+
+
+@code {
+    private List<ClienteCLS> ListaClientes = new();
+    private List<RepresentanteFormCLS> ListaRepresentantes = new();
+    protected override Task OnInitializedAsync()
+    {
+        clienteServicio.OnSearch += filtrar;
+        return base.OnInitializedAsync();
+    }
+    private Task filtrar(string nombre)
+    {
+        ListaClientes = clienteServicio.filtrarClientes(nombre);
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+    protected override void OnInitialized()
+    {
+        listar();
+    }
+    private void listar()
+    {
+        ListaRepresentantes = representantesServicio.ObtenerRepresentante();
+        ListaClientes = clienteServicio.ObtenerClientes();
+    }
+
+    private void navegar()
+    {
+        navigationManager.NavigateTo("/formClientes");
+    }
+    private void eliminar(int codcliente)
+    {
+        var listaqueda = clienteServicio.EliminarClientes(codcliente);
+        listar();
+    }
+    private void editar(int CodCliente)
+    {
+        navigationManager.NavigateTo("/formClientes/editar/" + CodCliente);
+    }
+}
+
